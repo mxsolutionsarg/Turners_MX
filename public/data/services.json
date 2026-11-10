@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nombre": "Cambio de aceite", "duracionMin": 30, "precio": 15000, "image": "cambio de aceite.jpg" },
+  { "id": 2, "nombre": "Alineación y balanceo", "duracionMin": 45, "precio": 22000, "image": "alineacion y balanceo.jpg" },
+  { "id": 3, "nombre": "Revisión general", "duracionMin": 60, "precio": 28000, "image": "mecanica general.jpg" },
+  { "id": 4, "nombre": "Cambio de pastillas de freno", "duracionMin": 50, "precio": 26000, "image": "frenos.jpg" }
+]

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clientes – NS Motors</title>
+  <link rel="stylesheet" href="../styles/body.css" />
+  <script src="../scripts/navbar.js" defer></script>
+  <script src="../scripts/clientes.js" defer></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo" aria-label="Ir al inicio">
+      <img src="../images/logo.png" alt="NS Motors" class="logo-img"><span class="brand-name">NS Motors</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="services.html">Servicios</a></li>
+      <li><a href="login.html" id="authLink" class="login-button">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1>Gestión de Clientes</h1>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+      <div class="search-bar" style="margin-bottom:0;">
+        <input type="text" id="searchCliente" placeholder="Buscar por nombre, apellido o DNI..." />
+      </div>
+      <button class="btn btn-primary" id="btnNuevoCliente">+ Nuevo Cliente</button>
+    </div>
+
+    <section class="table-wrap card">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>DNI</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="clientesBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Modal Crear/Editar -->
+  <div class="modal-overlay" id="modalCliente">
+    <div class="modal">
+      <h2 id="modalClienteTitle">Nuevo Cliente</h2>
+      <form id="formCliente">
+        <input type="hidden" id="clienteId" />
+        <div class="form-group">
+          <label for="cNombre">Nombre *</label>
+          <input type="text" id="cNombre" required />
+        </div>
+        <div class="form-group">
+          <label for="cApellido">Apellido *</label>
+          <input type="text" id="cApellido" required />
+        </div>
+        <div class="form-group">
+          <label for="cTelefono">Teléfono</label>
+          <input type="text" id="cTelefono" />
+        </div>
+        <div class="form-group">
+          <label for="cEmail">Email</label>
+          <input type="email" id="cEmail" />
+        </div>
+        <div class="form-group">
+          <label for="cDni">DNI</label>
+          <input type="text" id="cDni" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline sm" id="btnCancelCliente">Cancelar</button>
+          <button type="submit" class="btn btn-primary sm">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+  <script src="../scripts/footer.js"></script>
+</body>
+</html>

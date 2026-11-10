@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seguimientos – NS Motors</title>
+  <link rel="stylesheet" href="../styles/body.css" />
+  <link rel="stylesheet" href="../styles/seguimientos.css" />
+  <script src="../scripts/navbar.js" defer></script>
+  <script src="../scripts/seguimientos.js" defer></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo" aria-label="Ir al inicio">
+      <img src="../images/logo.png" alt="NS Motors" class="logo-img"><span class="brand-name">NS Motors</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="services.html">Servicios</a></li>
+      <li><a href="login.html" id="authLink" class="login-button">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1>Seguimiento de Mantenimientos</h1>
+
+    <!-- Search by dominio -->
+    <section class="card" style="margin-bottom:20px;">
+      <h2 style="font-size:1.1rem; margin-bottom:12px;">🔍 Buscar por Dominio</h2>
+      <div class="search-bar">
+        <input type="text" id="searchDominio" placeholder="Ingresá el dominio/patente (ej: ABC123)" style="text-transform:uppercase;" />
+        <button class="btn btn-primary sm" id="btnBuscar">Buscar</button>
+      </div>
+      <div id="vehiculoInfo" style="display:none; margin-top:12px;"></div>
+    </section>
+
+    <!-- Actions -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+      <p class="muted" id="resultInfo">Mostrando todos los seguimientos</p>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-outline sm" id="btnVerTodos">Ver Todos</button>
+        <button class="btn btn-primary sm" id="btnNuevoSeg">+ Nuevo Seguimiento</button>
+      </div>
+    </div>
+
+    <!-- Timeline / Table -->
+    <section id="seguimientosContainer"></section>
+  </main>
+
+  <!-- Modal Crear Seguimiento -->
+  <div class="modal-overlay" id="modalSeg">
+    <div class="modal">
+      <h2>Nuevo Seguimiento</h2>
+      <form id="formSeg">
+        <div class="form-group">
+          <label for="sDominio">Dominio del Vehículo *</label>
+          <input type="text" id="sDominio" placeholder="ABC123" required style="text-transform:uppercase;" />
+        </div>
+        <div class="form-group">
+          <label for="sServicio">Servicio Realizado *</label>
+          <select id="sServicio" required>
+            <option value="">Seleccionar...</option>
+          </select>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label for="sFecha">Fecha *</label>
+            <input type="date" id="sFecha" required />
+          </div>
+          <div class="form-group">
+            <label for="sKm">Kilometraje</label>
+            <input type="number" id="sKm" placeholder="Ej: 45000" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sObs">Observaciones</label>
+          <textarea id="sObs" rows="3" placeholder="Detalles del mantenimiento..."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline sm" id="btnCancelSeg">Cancelar</button>
+          <button type="submit" class="btn btn-primary sm">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+  <script src="../scripts/footer.js"></script>
+</body>
+</html>

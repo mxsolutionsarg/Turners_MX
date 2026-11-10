@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Backoffice – NS Motors</title>
+  <link rel="stylesheet" href="../styles/backoffice.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+</head>
+<body>
+
+  <!-- Screen 1: Access Key -->
+  <div id="authScreen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-badge">🔒</div>
+      <h2>Backoffice</h2>
+      <p class="auth-subtitle">Acceso restringido – Ingresá la clave secreta</p>
+      <form id="authForm">
+        <input type="password" id="secretKey" placeholder="Clave secreta" required autocomplete="off" />
+        <button type="submit">Acceder</button>
+      </form>
+      <p id="authError" class="auth-error" style="display:none;"></p>
+    </div>
+  </div>
+
+  <!-- Screen 2: Admin Panel -->
+  <div id="panelScreen" class="panel-screen" style="display:none;">
+    <header class="panel-header">
+      <div class="header-left">
+        <span class="header-badge">⚙️</span>
+        <h1>Backoffice <span>NS Motors</span></h1>
+      </div>
+      <button id="btnLogout" class="btn-logout">🔓 Salir</button>
+    </header>
+
+    <main class="panel-main">
+      <!-- Create Admin Form -->
+      <section class="card create-card">
+        <h3>➕ Nuevo Administrador</h3>
+        <form id="createForm" class="create-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="adminNombre">Nombre *</label>
+              <input type="text" id="adminNombre" required />
+            </div>
+            <div class="form-group">
+              <label for="adminApellido">Apellido</label>
+              <input type="text" id="adminApellido" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="adminEmail">Email *</label>
+              <input type="email" id="adminEmail" required />
+            </div>
+            <div class="form-group">
+              <label for="adminPassword">Contraseña *</label>
+              <input type="password" id="adminPassword" required minlength="6" />
+            </div>
+          </div>
+          <button type="submit" class="btn-create">Crear Admin</button>
+        </form>
+      </section>
+
+      <!-- Admins Table -->
+      <section class="card table-card">
+        <h3>👤 Administradores Registrados</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Fecha Alta</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="adminsBody">
+              <tr><td colspan="5" class="empty-msg">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="../scripts/backoffice.js"></script>
+</body>
+</html>

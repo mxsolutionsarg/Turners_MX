@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Admin – NS Motors</title>
+  <link rel="stylesheet" href="../styles/body.css" />
+  <link rel="stylesheet" href="../styles/dashboard.css" />
+  <script src="../scripts/jspdf.umd.min.js" defer></script>
+  <script src="../scripts/navbar.js" defer></script>
+  <script src="../scripts/dashboard.js" defer></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo" aria-label="Ir al inicio">
+      <img src="../images/logo.png" alt="NS Motors" class="logo-img"><span class="brand-name">NS Motors</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="services.html">Servicios</a></li>
+      <li><a href="login.html" id="authLink" class="login-button">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <div class="dash-header">
+      <div>
+        <h1>Panel de Administración</h1>
+        <p class="muted" id="dashGreeting">Bienvenido</p>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <section class="stats-grid" id="statsGrid">
+      <div class="stat-card" data-goto="clientes.html">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <span class="stat-number" id="statClientes">—</span>
+          <span class="stat-label">Clientes</span>
+        </div>
+      </div>
+      <div class="stat-card" data-goto="vehiculos.html">
+        <div class="stat-icon">🚗</div>
+        <div class="stat-info">
+          <span class="stat-number" id="statVehiculos">—</span>
+          <span class="stat-label">Vehículos</span>
+        </div>
+      </div>
+      <div class="stat-card" data-goto="">
+        <div class="stat-icon">📅</div>
+        <div class="stat-info">
+          <span class="stat-number" id="statTurnos">—</span>
+          <span class="stat-label">Turnos hoy</span>
+        </div>
+      </div>
+      <div class="stat-card" data-goto="seguimientos.html">
+        <div class="stat-icon">🔧</div>
+        <div class="stat-info">
+          <span class="stat-number" id="statSeguimientos">—</span>
+          <span class="stat-label">Seguimientos</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rendimientos Mensuales -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2>📊 Rendimiento Mensual</h2>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <select id="rendMes" class="dash-input"></select>
+          <select id="rendAnio" class="dash-input"></select>
+        </div>
+      </div>
+      <div class="card rendimiento-card">
+        <div class="rendimiento-kpis" id="rendKpis">
+          <div class="rend-kpi">
+            <span class="rend-kpi-value" id="rkTurnos">—</span>
+            <span class="rend-kpi-label">Turnos</span>
+          </div>
+          <div class="rend-kpi">
+            <span class="rend-kpi-value rend-green" id="rkCompletados">—</span>
+            <span class="rend-kpi-label">Completados</span>
+          </div>
+          <div class="rend-kpi">
+            <span class="rend-kpi-value rend-accent" id="rkIngresos">—</span>
+            <span class="rend-kpi-label">Ingresos</span>
+          </div>
+          <div class="rend-kpi">
+            <span class="rend-kpi-value" id="rkTicket">—</span>
+            <span class="rend-kpi-label">Ticket Promedio</span>
+          </div>
+          <div class="rend-kpi">
+            <span class="rend-kpi-value" id="rkServicios">—</span>
+            <span class="rend-kpi-label">Seguimientos</span>
+          </div>
+        </div>
+        <div class="rend-chart-wrap">
+          <p class="muted" style="margin-bottom:8px;font-size:0.8rem;">Turnos por día del mes</p>
+          <div class="rend-chart" id="rendChart"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gestión de Servicios -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2>🛠️ Gestión de Servicios</h2>
+        <button class="btn btn-primary sm" id="btnNuevoServicio">+ Nuevo Servicio</button>
+      </div>
+      <div class="table-wrap card">
+        <table class="dash-table" id="serviciosTable">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Duración</th>
+              <th>Precio</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="serviciosBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Modal Servicio -->
+    <div class="modal-overlay" id="modalServicio">
+      <div class="modal">
+        <h2 id="servicioModalTitle">Nuevo Servicio</h2>
+        <form id="formServicio">
+          <input type="hidden" id="svcId" />
+          <div class="form-group">
+            <label for="svcNombre">Nombre</label>
+            <input type="text" id="svcNombre" required placeholder="Ej: Cambio de aceite" />
+          </div>
+          <div class="form-group">
+            <label for="svcDescripcion">Descripción</label>
+            <textarea id="svcDescripcion" rows="3" placeholder="Describí el servicio..."></textarea>
+          </div>
+          <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-group">
+              <label for="svcDuracion">Duración (min)</label>
+              <input type="number" id="svcDuracion" value="30" min="5" />
+            </div>
+            <div class="form-group">
+              <label for="svcPrecio">Precio ($)</label>
+              <input type="number" id="svcPrecio" value="0" min="0" step="0.01" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Imagen del servicio</label>
+            <input type="hidden" id="svcImagen" />
+            <div class="dropzone" id="svcDropzone">
+              <input type="file" id="svcFileInput" accept="image/*" style="display:none;" />
+              <div class="dropzone-content" id="svcDropzoneContent">
+                <span class="dropzone-icon">📷</span>
+                <p>Arrastrá una imagen aquí o <strong>hacé clic</strong></p>
+                <small>JPG, PNG, WebP — máx. 5MB</small>
+              </div>
+              <img id="svcImgPreview" class="dropzone-preview" style="display:none;" alt="Preview" />
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-outline sm" id="btnCancelServicio">Cancelar</button>
+            <button type="submit" class="btn btn-primary sm">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Gestión de Disponibilidad -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2>🚫 Gestión de Disponibilidad</h2>
+      </div>
+      <div class="card">
+        <p class="muted" style="margin-bottom:14px;">Bloqueá fechas en las que el taller no atiende (vacaciones, feriados, etc.)</p>
+        <form id="formBloqueo" class="bloqueo-form">
+          <div class="form-group">
+            <label for="bFechaInicio">Desde</label>
+            <input type="date" id="bFechaInicio" required />
+          </div>
+          <div class="form-group">
+            <label for="bFechaFin">Hasta</label>
+            <input type="date" id="bFechaFin" required />
+          </div>
+          <div class="form-group">
+            <label for="bMotivo">Motivo</label>
+            <input type="text" id="bMotivo" placeholder="Ej: Vacaciones" />
+          </div>
+          <button type="submit" class="btn btn-primary sm">Bloquear</button>
+        </form>
+        <div id="bloqueosLista" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <!-- Turnos Reservados -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2>📅 Turnos Reservados</h2>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <input type="date" id="filterFecha" class="dash-input" />
+          <button class="btn btn-outline sm" id="btnTodosLos">Ver Todos</button>
+        </div>
+      </div>
+      <div class="table-wrap card">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Servicio</th>
+              <th>Duración</th>
+              <th>Cliente</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="turnosBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Clientes Registrados -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2>👥 Clientes Registrados</h2>
+        <a href="clientes.html" class="btn btn-outline sm">Ver todos →</a>
+      </div>
+      <div class="table-wrap card">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Vehículos</th>
+            </tr>
+          </thead>
+          <tbody id="clientesBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Registrar Seguimiento rápido -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2>🔧 Registrar Servicio Realizado</h2>
+      </div>
+      <div class="card" style="padding:24px;">
+        <form id="formQuickSeg" class="quick-form">
+          <div class="form-group">
+            <label for="qDominio">Dominio del Vehículo</label>
+            <input type="text" id="qDominio" placeholder="ABC123" required style="text-transform:uppercase;" />
+            <span class="muted" id="qVehiculoInfo"></span>
+          </div>
+          <div class="form-group">
+            <label for="qServicio">Servicio Realizado</label>
+            <select id="qServicio" required>
+              <option value="">Seleccionar...</option>
+            </select>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label for="qFecha">Fecha</label>
+              <input type="date" id="qFecha" required />
+            </div>
+            <div class="form-group">
+              <label for="qKm">Kilometraje</label>
+              <input type="number" id="qKm" placeholder="Ej: 45000" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="qObs">Observaciones</label>
+            <textarea id="qObs" rows="2" placeholder="Detalles del mantenimiento..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Registrar Seguimiento</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Modal para editar turno -->
+    <div class="modal-overlay" id="modalTurno">
+      <div class="modal">
+        <h2>Editar Turno</h2>
+        <form id="formEditTurno">
+          <input type="hidden" id="editTurnoId" />
+          <div class="form-group">
+            <label for="editFecha">Fecha</label>
+            <input type="date" id="editFecha" required />
+          </div>
+          <div class="form-group">
+            <label for="editHora">Hora</label>
+            <input type="time" id="editHora" required step="1800" />
+          </div>
+          <div class="form-group">
+            <label for="editEstado">Estado</label>
+            <select id="editEstado" required>
+              <option value="pendiente">Pendiente</option>
+              <option value="confirmado">Confirmado</option>
+              <option value="completado">Completado</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-outline sm" id="btnCancelTurno">Cancelar</button>
+            <button type="submit" class="btn btn-primary sm">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de Presupuesto -->
+    <div class="modal-overlay" id="modalPresupuesto">
+      <div class="modal modal-lg">
+        <h2 id="presupuestoTitle">Nuevo Presupuesto</h2>
+        <div id="formPresupuesto">
+          <input type="hidden" id="pTurnoId" />
+          <input type="hidden" id="pVehiculoId" />
+          <input type="hidden" id="pPresupuestoId" />
+
+          <div class="presupuesto-info" id="pInfoBlock">
+            <!-- Auto-filled vehicle + client info -->
+          </div>
+
+          <div class="presupuesto-items-wrap">
+            <table class="presupuesto-table">
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th style="width:80px;">Cant.</th>
+                  <th style="width:120px;">Precio Unit.</th>
+                  <th style="width:120px;">Subtotal</th>
+                  <th style="width:50px;"></th>
+                </tr>
+              </thead>
+              <tbody id="pItemsBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" style="text-align:right; font-weight:700;">TOTAL</td>
+                  <td style="font-weight:800; color:var(--accent);" id="pTotal">$0</td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+            <button type="button" class="btn btn-outline sm" id="btnAddItem" style="margin-top:8px;">+ Agregar ítem</button>
+          </div>
+
+          <div class="form-group" style="margin-top:16px;">
+            <label for="pObservaciones">Observaciones</label>
+            <textarea id="pObservaciones" rows="2" placeholder="Notas adicionales..."></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn btn-outline sm" id="btnCancelPresupuesto">Cancelar</button>
+            <button type="button" class="btn btn-success sm" id="btnExportPDF">📄 Exportar PDF</button>
+            <button type="button" class="btn btn-primary sm" id="btnSavePresupuesto">💾 Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="footer"></div>
+  <script src="../scripts/footer.js"></script>
+</body>
+</html>

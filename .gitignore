@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+stderr.log
+console.log
+
+# Uploads (if any)
+uploads/
+tmp/
+
+# Gemini/AI
+.gemini/
+.agent/
+.agents/

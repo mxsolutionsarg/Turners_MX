@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NS Motors – Taller Mecánico</title>
+  <link rel="stylesheet" href="../styles/body.css" />
+  <script src="../scripts/navbar.js" defer></script>
+  <script src="../scripts/home.js" defer></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo" aria-label="Ir al inicio">
+      <img src="../images/logo.png" alt="NS Motors" class="logo-img"><span class="brand-name">NS Motors</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Inicio</a></li>
+      <li><a href="services.html">Servicios</a></li>
+      <li><a href="login.html" id="authLink" class="login-button">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__content">
+        <h1>Mantenimiento y reparación con turnos inteligentes</h1>
+        <p>
+          Organizá tus servicios mecánicos con reservas online y tiempos claros.
+          Con NS Motors, tu taller y tus clientes trabajan mejor.
+        </p>
+        <div class="hero__cta">
+          <a href="services.html" class="btn btn-primary lg">Ver Servicios</a>
+          <a href="#" id="ctaReservar" class="btn btn-outline lg">Reservar Turno</a>
+        </div>
+      </div>
+      <div class="hero__media" aria-hidden="true">
+        <img src="../assets/images/taller-generico.jpeg" alt="Auto en mantenimiento">
+      </div>
+    </section>
+
+    <section class="features">
+      <!-- Feature 1 -->
+      <section class="feature obs">
+        <div class="feature__text">
+          <h2>Mecánica General</h2>
+          <p>Diagnóstico, reparación y mantenimiento preventivo.</p>
+          <ul class="feature__bullets">
+            <li>Chequeo de sistemas clave</li>
+            <li>Mantenimiento según plan del fabricante</li>
+            <li>Historial de servicios</li>
+          </ul>
+          <a class="link" href="services.html">Conocer más →</a>
+        </div>
+        <div class="feature__media">
+          <img src="../assets/images/services/mecanica general.jpg" alt="Mecánica general">
+        </div>
+      </section>
+
+      <!-- Feature 2 -->
+      <section class="feature obs">
+        <div class="feature__text">
+          <h2>Cambio de Aceite</h2>
+          <p>Servicio rápido con insumos de calidad y agenda flexible.</p>
+          <ul class="feature__bullets">
+            <li>Aceites y filtros de primeras marcas</li>
+            <li>Franjas horarias</li>
+            <li>Recordatorios automáticos</li>
+          </ul>
+          <a class="link" href="services.html">Conocer más →</a>
+        </div>
+        <div class="feature__media">
+          <img src="../assets/images/services/cambio de aceite.jpg" alt="Cambio de aceite">
+        </div>
+      </section>
+
+      <!-- Feature 3 -->
+      <section class="feature obs">
+        <div class="feature__text">
+          <h2>Diagnostico con scanner</h2>
+          <p>Diagnóstico electrónico completo con scanner de última generación.</p>
+          <ul class="feature__bullets">
+            <li>Diagnóstico de fallas electrónicas</li>
+            <li>Chequeo de sensores y actuadores</li>
+            <li>Análisis de parámetros en tiempo real</li>
+          </ul>
+          <a class="link" href="services.html">Conocer más →</a>
+        </div>
+        <div class="feature__media">
+          <img src="../assets/images/services/diagnostico.jpg" alt="Alineación y balanceo">
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+  <script src="../scripts/footer.js"></script>
+</body>
+</html>

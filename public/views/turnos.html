@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Turnos – NS Motors</title>
+  <link rel="stylesheet" href="../styles/body.css" />
+  <link rel="stylesheet" href="../styles/turnos.css" />
+  <script src="../scripts/jspdf.umd.min.js" defer></script>
+  <script src="../scripts/navbar.js" defer></script>
+  <script src="../scripts/turnos.js" defer></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo" aria-label="Ir al inicio">
+      <img src="../images/logo.png" alt="NS Motors" class="logo-img"><span class="brand-name">NS Motors</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="services.html">Servicios</a></li>
+      <li><a href="login.html" id="authLink" class="login-button">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1>Mis Turnos</h1>
+
+    <!-- Crear turno -->
+    <section class="card" aria-labelledby="crear-turno">
+      <h2 id="crear-turno" style="margin-bottom:16px; font-size:1.2rem;">Nuevo turno</h2>
+
+      <form id="turnoForm" class="form-turnos">
+        <div class="field field--servicio">
+          <label for="servicio">Servicio</label>
+          <select id="servicio" required>
+            <option value="">Cargando...</option>
+          </select>
+          <small class="muted" id="duracionInfo"></small>
+        </div>
+
+        <div class="field field--vehiculo">
+          <label for="vehiculo">Vehículo</label>
+          <select id="vehiculo">
+            <option value="">Sin vehículo asignado</option>
+          </select>
+        </div>
+
+        <div class="field field--fecha">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" required />
+        </div>
+
+        <div class="field field--hora">
+          <label for="hora">Hora</label>
+          <select id="hora" required disabled>
+            <option value="">Selecciona fecha y servicio...</option>
+          </select>
+        </div>
+
+        <div class="field field--btn">
+          <button type="submit">Guardar turno</button>
+        </div>
+      </form>
+
+      <p class="muted mt-1" id="usuarioActual"></p>
+    </section>
+
+    <!-- Tabla -->
+    <section class="table-wrap card mt-1">
+      <table aria-describedby="subtitulo-turnos">
+        <caption id="subtitulo-turnos" class="muted" style="caption-side: bottom; padding-top:.5rem;">
+          Solo se muestran tus turnos.
+        </caption>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Servicio</th>
+            <th>Estado</th>
+            <th class="actions">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="turnosBody"><!-- dinámico --></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Modal Presupuesto (read-only for clients) -->
+  <div class="modal-overlay" id="modalPresupuestoCliente">
+    <div class="modal" style="width:90%;max-width:620px;">
+      <h2 style="margin-bottom:16px;">📄 Presupuesto</h2>
+      <div id="clientePresupuestoContent"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
+        <button class="btn btn-outline sm" id="btnCerrarPresCliente">Cerrar</button>
+        <button class="btn btn-primary sm" id="btnDownloadPDFCliente">📥 Descargar PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+  <script src="../scripts/footer.js"></script>
+</body>
+</html>

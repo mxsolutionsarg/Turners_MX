@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vehículos – NS Motors</title>
+  <link rel="stylesheet" href="../styles/body.css" />
+  <script src="../scripts/navbar.js" defer></script>
+  <script src="../scripts/vehiculos.js" defer></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo" aria-label="Ir al inicio">
+      <img src="../images/logo.png" alt="NS Motors" class="logo-img"><span class="brand-name">NS Motors</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="services.html">Servicios</a></li>
+      <li><a href="login.html" id="authLink" class="login-button">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1>Gestión de Vehículos</h1>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+      <div class="search-bar" style="margin-bottom:0;">
+        <input type="text" id="searchVehiculo" placeholder="Buscar por dominio, marca o modelo..." />
+      </div>
+      <button class="btn btn-primary" id="btnNuevoVehiculo">+ Nuevo Vehículo</button>
+    </div>
+
+    <section class="table-wrap card">
+      <table>
+        <thead>
+          <tr>
+            <th>Dominio</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Año</th>
+            <th>Color</th>
+            <th>Cliente</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="vehiculosBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Modal Crear/Editar -->
+  <div class="modal-overlay" id="modalVehiculo">
+    <div class="modal">
+      <h2 id="modalVehiculoTitle">Nuevo Vehículo</h2>
+      <form id="formVehiculo">
+        <input type="hidden" id="vehiculoId" />
+        <div class="form-group">
+          <label for="vDominio">Dominio (Patente) *</label>
+          <input type="text" id="vDominio" placeholder="ABC123" required style="text-transform:uppercase;" />
+        </div>
+        <div class="form-group">
+          <label for="vMarca">Marca *</label>
+          <input type="text" id="vMarca" placeholder="Ej: Toyota" required />
+        </div>
+        <div class="form-group">
+          <label for="vModelo">Modelo *</label>
+          <input type="text" id="vModelo" placeholder="Ej: Corolla" required />
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label for="vAnio">Año</label>
+            <input type="number" id="vAnio" placeholder="2024" min="1900" max="2099" />
+          </div>
+          <div class="form-group">
+            <label for="vColor">Color</label>
+            <input type="text" id="vColor" placeholder="Blanco" />
+          </div>
+        </div>
+        <div class="form-group" id="clienteGroup">
+          <label for="vCliente">Cliente</label>
+          <select id="vCliente">
+            <option value="">Seleccionar cliente...</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline sm" id="btnCancelVehiculo">Cancelar</button>
+          <button type="submit" class="btn btn-primary sm">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+  <script src="../scripts/footer.js"></script>
+</body>
+</html>

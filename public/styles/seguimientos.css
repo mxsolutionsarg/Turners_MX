@@ -1,0 +1,30 @@
+/* ============================================
+   SEGUIMIENTOS – Timeline Premium
+   ============================================ */
+.timeline-item {
+  position: relative;
+  transition: border-color 0.2s;
+}
+.timeline-item:hover {
+  border-color: rgba(220,38,38,0.3);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.timeline-body {
+  line-height: 1.6;
+}
+
+.timeline-vehicle {
+  margin-bottom: 4px;
+}
+
+/* Vehicle info card */
+#vehiculoInfo div {
+  transition: all 0.2s;
+}
